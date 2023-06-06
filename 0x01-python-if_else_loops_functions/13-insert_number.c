@@ -3,11 +3,11 @@
 #include "lists.h"
 
 /**
-* insert_node - Inserts a number into a sorted singly linked list
-* @head: Pointer to the head of the linked list
+* insert_node - Inserts a number
+* @head: Pointer to the head
 * @number: Number to be inserted
 *
-* Return: Address of the new node, or NULL if it failed
+* Return: Address
 */
 listint_t *insert_node(listint_t **head, int number)
 {
