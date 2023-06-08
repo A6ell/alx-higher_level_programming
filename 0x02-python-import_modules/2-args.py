@@ -3,9 +3,10 @@
 if __name__ == "__main__":
     import sys
 
-    total_sum = 0
-    for i in range(1, len(sys.argv)):
-        sys.argv[i] = int(sys.argv[i])
-        total_sum += sys.argv[i]
+args = sys.argv[1:]
+num_args = len(args)
 
-    print(total_sum)
+print("{} argument{}:".format(num_args, 's' if num_args != 1 else ''))
+
+for i, arg in enumerate(args, start=1):
+    print("{}: {}".format(i, arg))
