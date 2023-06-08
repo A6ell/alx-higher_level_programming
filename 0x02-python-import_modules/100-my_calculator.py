@@ -1,6 +1,14 @@
 #!/usr/bin/python3
+
 import sys
 from calculator_1 import add, sub, mul, div
+
+def calculate(a, operator, b):
+    operators = {"+": add, "-": sub, "*": mul, "/": div}
+    if operator not in operators.keys():
+        print("Unknown operator. Available operators: +, -, * and /")
+        sys.exit(1)
+    return operators[operator](a, b)
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
@@ -11,18 +19,5 @@ if __name__ == "__main__":
     operator = sys.argv[2]
     b = int(sys.argv[3])
 
-    result = 0
-
-    if operator == '+':
-        result = add(a, b)
-    elif operator == '-':
-        result = sub(a, b)
-    elif operator == '*':
-        result = mul(a, b)
-    elif operator == '/':
-        result = div(a, b)
-    else:
-        print("Unknown operator. Available operators: +, -, * and /")
-        sys.exit(1)
-
+    result = calculate(a, operator, b)
     print("{} {} {} = {}".format(a, operator, b, result))
