@@ -29,7 +29,7 @@ class Node:
 
     @property
     def next_node(self):
-        """Get/set the next_node of the Node."""
+        """Get/set next_node of the Node."""
         return self.__next_node
 
     @next_node.setter
@@ -47,13 +47,13 @@ class SinglyLinkedList:
         self.__head = None
 
     def sorted_insert(self, value):
-        """Insert a new Node to the SinglyLinkedList.
+        """Node to the SinglyLinkedList.
 
         The node is inserted into the list at the correct
         ordered numerical position.
 
         Args:
-            value (Node): The new Node to insert.
+            value (Node): The Node to insert.
         """
         new = Node(value)
         if self.__head is None:
@@ -70,7 +70,7 @@ class SinglyLinkedList:
             tmp.next_node = new
 
     def __str__(self):
-        """Define the print() representation of a SinglyLinkedList."""
+        """Define the print() representation"""
         values = []
         tmp = self.__head
         while tmp is not None:
