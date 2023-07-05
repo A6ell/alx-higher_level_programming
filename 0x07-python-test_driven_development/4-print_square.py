@@ -1,16 +1,17 @@
 #!/usr/bin/python3
-"""Defines a name-printing function."""
+
+"""
+This is the print_square module.
+This module takes in 1 argument, size, and
+prints a square with the character #
+"""
 
 
-def say_my_name(size):
-    """Print a name.
-    Args:
-        first_name (str): The first name to print.
-        last_name (str): The last name to print.
-    Raises:
-        TypeError: If either first_name or last_name are not strings.
-        ValueError: If first_name is an empty string.
+def print_square(size):
     """
+    prints a square with the character #
+    """
+
     if not isinstance(size, int):
         raise TypeError("size must be an integer")
     elif size < 0:
