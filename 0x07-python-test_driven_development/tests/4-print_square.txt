@@ -1,0 +1,51 @@
+``print_square`` prints a square with the character #, using 
+the argument size
+
+::
+
+    >>> import importlib
+
+    >>> module = importlib.import_module('4-print_square')
+    >>> print_square = module.print_square
+    >>> print_square(4)
+    ####
+    ####
+    ####
+    ####
+
+size must be an integer
+
+::
+
+    >>> print_square("strwf")
+    Traceback (most recent call last):
+        ...
+    TypeError: size must be an integer
+
+size must be greater than or equal to zero
+
+::
+
+    >>> print_square(-20)
+    Traceback (most recent call last):
+        ...
+    ValueError: size must be >= 0
+
+if size is a float and is less than 0, raise a TypeError exception 
+with the message size must be an integer
+
+::
+
+    >>> print_square(-10.2)
+    Traceback (most recent call last):
+        ...
+    TypeError: size must be an integer
+
+the function needs an argument
+
+::
+
+    >>> print_square()
+    Traceback (most recent call last):
+        ...
+    TypeError: print_square() missing 1 required positional argument: 'size'

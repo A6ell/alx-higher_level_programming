@@ -2,7 +2,7 @@
 """Defines a name-printing function."""
 
 
-def say_my_name(first_name, last_name=""):
+def say_my_name(size):
     """Print a name.
     Args:
         first_name (str): The first name to print.
@@ -11,13 +11,13 @@ def say_my_name(first_name, last_name=""):
         TypeError: If either first_name or last_name are not strings.
         ValueError: If first_name is an empty string.
     """
-    if not isinstance(first_name, str):
-        raise TypeError("The first name must be a string")
-    if not isinstance(last_name, str):
-        raise TypeError("The last name must be a string")
-    if not first_name:
-        raise ValueError("The first name must not be empty")
-    if not last_name:
-        print(f"My name is {first_name}")
-    else:
-        print(f"My name is {first_name} {last_name}")
+    if not isinstance(size, int):
+        raise TypeError("size must be an integer")
+    elif size < 0:
+        raise ValueError("size must be >= 0")
+
+    for i in range(size):
+        for j in range(size):
+            print("#", end="")
+        if i != size:
+            print()
