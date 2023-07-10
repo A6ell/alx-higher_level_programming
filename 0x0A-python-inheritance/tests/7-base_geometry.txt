@@ -1,0 +1,3 @@
+name, Abel, [TypeError] name must be an integer
+age, 26, [ValueError] age must be greater than 0
+distance, -4, [ValueError] distance must be greater than 0
