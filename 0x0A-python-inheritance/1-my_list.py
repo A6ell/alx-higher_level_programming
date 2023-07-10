@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+Holds the MyList class
+"""
+
+
 class MyList(list):
     """
     Custom list class that inherits from list.
