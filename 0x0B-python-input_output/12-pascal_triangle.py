@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+'''
+function that returns a list of integers
+that make pascal's triangle
+'''
+
+
 def pascal_triangle(n):
     """Generates Pascal's triangle up to n"""
     if n <= 0:

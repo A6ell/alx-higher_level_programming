@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+'''
+contains a class Student with 3 public instance attributes
+and a public instance method
+'''
+
+
 class Student:
     """Class representing a student"""
 

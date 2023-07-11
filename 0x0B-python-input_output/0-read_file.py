@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+'''
+function read_file that reads a file
+and prints it out
+'''
+
+
 def read_file(filename=""):
     """
     Reads a text file and prints its contents to stdout.

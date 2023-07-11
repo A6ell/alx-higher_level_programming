@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+'''
+function to_json_string that returns a JSON
+representation of an object
+'''
+
+
 import json
 
 

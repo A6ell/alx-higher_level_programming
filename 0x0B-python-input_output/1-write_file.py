@@ -1,3 +1,10 @@
+#!/usr/bin/python3
+'''
+function write_file that writes onto a file
+and returns the number of characters written
+'''
+
+
 def write_file(filename="", text=""):
     """
     write to a text file and returns the number of characters written.
