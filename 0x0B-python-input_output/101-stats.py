@@ -5,41 +5,52 @@ and computes metrics
 """
 
 
-import sys
+def print_stats(size, status_codes):
+    """Print accumulated metrics.
+
+    Args:
+        size (int): The accumulated read file size.
+        status_codes (dict): The accumulated count of status codes.
+    """
+    print("File size: {}".format(size))
+    for key in sorted(status_codes):
+        print("{}: {}".format(key, status_codes[key]))
 
 
-def print_statistics(file_size, status_codes):
-    """Prints the computed statistics"""
-    print("File size: {}".format(file_size))
-    for code in sorted(status_codes):
-        count = status_codes[code]
-        print("{}: {}".format(code, count))
+if __name__ == "__main__":
+    import sys
 
-
-def compute_metrics():
-    """Reads stdin line by line and computes the metrics"""
-    file_size = 0
+    size = 0
     status_codes = {}
+    valid_codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
+    count = 0
 
     try:
-        line_count = 0
         for line in sys.stdin:
-            line_count += 1
-
-            ip, _, date, request, status, size = line.split(" ", 5)
-            file_size += int(size)
-
-            if status in status_codes:
-                status_codes[status] += 1
+            if count == 10:
+                print_stats(size, status_codes)
+                count = 1
             else:
-                status_codes[status] = 1
+                count += 1
 
-            if line_count % 10 == 0:
-                print_statistics(file_size, status_codes)
+            line = line.split()
+
+            try:
+                size += int(line[-1])
+            except (IndexError, ValueError):
+                pass
+
+            try:
+                if line[-2] in valid_codes:
+                    if status_codes.get(line[-2], -1) == -1:
+                        status_codes[line[-2]] = 1
+                    else:
+                        status_codes[line[-2]] += 1
+            except IndexError:
+                pass
+
+        print_stats(size, status_codes)
 
     except KeyboardInterrupt:
-        print_statistics(file_size, status_codes)
+        print_stats(size, status_codes)
         raise
-
-
-compute_metrics()
