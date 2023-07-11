@@ -1,52 +1,56 @@
 #!/usr/bin/env python3
-'''
+"""
 script that reads stdin line by line
 and computes metrics
-'''
+"""
 
 
 import sys
 
 
-def print_statistics(total_size, status_codes):
-    """Prints the computed statistics"""
+def print_metrics(total_size, status_codes):
+    """
+    this is the function
+    """
     print("File size: {}".format(total_size))
-    for status_code, count in sorted(status_codes.items()):
-        print("{}: {}".format(status_code, count))
+    for code in sorted(status_codes.keys()):
+        if status_codes[code] > 0:
+            print("{}: {}".format(code, status_codes[code]))
 
 
-def parse_line(line):
-    """Parses a log line and returns the file size and status code"""
-    elements = line.split(" ")
-    size = int(elements[-1])
-    status_code = elements[-2]
-    return size, status_code
-
-
-def compute_metrics():
-    """Reads stdin line by line and computes the metrics"""
+if __name__ == "__main__":
     total_size = 0
-    status_codes = {}
+    status_codes = {
+        "200": 0,
+        "301": 0,
+        "400": 0,
+        "401": 0,
+        "403": 0,
+        "404": 0,
+        "405": 0,
+        "500": 0,
+    }
+    count = 0
 
     try:
-        line_count = 0
+
         for line in sys.stdin:
-            size, status_code = parse_line(line)
-            total_size += size
+            count += 1
+            split_line = line.split()
+            try:
+                size = int(split_line[-1])
+                code = split_line[-2]
+                total_size += size
+                if code in status_codes:
+                    status_codes[code] += 1
+            except Exception:
+                pass
 
-            if status_code in status_codes:
-                status_codes[status_code] += 1
-            else:
-                status_codes[status_code] = 1
+            if count % 10 == 0:
+                print_metrics(total_size, status_codes)
 
-            line_count += 1
-
-            if line_count % 10 == 0:
-                print_statistics(total_size, status_codes)
+        print_metrics(total_size, status_codes)
 
     except KeyboardInterrupt:
-        print_statistics(total_size, status_codes)
+        print_metrics(total_size, status_codes)
         raise
-
-
-compute_metrics()
