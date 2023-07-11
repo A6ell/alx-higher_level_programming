@@ -8,49 +8,38 @@ and computes metrics
 import sys
 
 
-def print_metrics(total_size, status_codes):
-    """
-    this is the function
-    """
-    print("File size: {}".format(total_size))
-    for code in sorted(status_codes.keys()):
-        if status_codes[code] > 0:
-            print("{}: {}".format(code, status_codes[code]))
+def print_statistics(file_size, status_codes):
+    """Prints the computed statistics"""
+    print("File size: {}".format(file_size))
+    for code in sorted(status_codes):
+        count = status_codes[code]
+        print("{}: {}".format(code, count))
 
 
-if __name__ == "__main__":
-    total_size = 0
-    status_codes = {
-        "200": 0,
-        "301": 0,
-        "400": 0,
-        "401": 0,
-        "403": 0,
-        "404": 0,
-        "405": 0,
-        "500": 0,
-    }
-    count = 0
+def compute_metrics():
+    """Reads stdin line by line and computes the metrics"""
+    file_size = 0
+    status_codes = {}
 
     try:
-
+        line_count = 0
         for line in sys.stdin:
-            count += 1
-            split_line = line.split()
-            try:
-                size = int(split_line[-1])
-                code = split_line[-2]
-                total_size += size
-                if code in status_codes:
-                    status_codes[code] += 1
-            except Exception:
-                pass
+            line_count += 1
 
-            if count % 10 == 0:
-                print_metrics(total_size, status_codes)
+            ip, _, date, request, status, size = line.split(" ", 5)
+            file_size += int(size)
 
-        print_metrics(total_size, status_codes)
+            if status in status_codes:
+                status_codes[status] += 1
+            else:
+                status_codes[status] = 1
+
+            if line_count % 10 == 0:
+                print_statistics(file_size, status_codes)
 
     except KeyboardInterrupt:
-        print_metrics(total_size, status_codes)
+        print_statistics(file_size, status_codes)
         raise
+
+
+compute_metrics()
