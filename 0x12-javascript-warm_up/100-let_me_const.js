@@ -1,2 +1,2 @@
 #!/usr/bin/node
-const myVar = 89;
+myVar = 89;
