@@ -1,45 +1,26 @@
 #!/usr/bin/python3
+"""  lists all states from the database  """
 import MySQLdb
 import sys
 
 if __name__ == "__main__":
-    # Check if the correct number of arguments is provided
-    if len(sys.argv) != 4:
-        print("Usage: {} <username> <password> <database>".format(sys.argv[0]))
-        sys.exit(1)
-
-    # Extract the command line arguments
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-
-    try:
-        # Connect to the MySQL server
+    if __name__ == '__main__':
         db = MySQLdb.connect(
-            host="localhost",
+            host='localhost',
             port=3306,
-            user=username,
-            passwd=password,
-            db=database
+            user=sys.argv[1],
+            passwd=sys.argv[2],
+            db=sys.argv[3]
         )
 
-        # Create a cursor object to execute SQL queries
-        cursor = db.cursor()
+        cur = db.cursor()
 
-        # Execute the SQL query to fetch all states sorted by id
-        cursor.execute("SELECT * FROM states ORDER BY id ASC")
+        cur.execute("SELECT * FROM states ORDER BY id ASC")
 
-        # Fetch all the results
-        states = cursor.fetchall()
+        rows = cur.fetchall()
 
-        # Print the results
-        for state in states:
-            print(state)
+        for row in rows:
+            print(row)
 
-        # Close the cursor and database connection
-        cursor.close()
+        cur.close()
         db.close()
-
-    except MySQLdb.Error as e:
-        print("MySQL Error: {}".format(e))
-        sys.exit(1)
