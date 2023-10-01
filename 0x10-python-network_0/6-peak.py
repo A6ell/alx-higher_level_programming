@@ -6,18 +6,23 @@ def find_peak(list_of_integers):
     """
     Return a peak in a list of unsorted integers
     """
-    if len(list_of_integers) == 0:
+    unsorted = list_of_integers
+    length = len(list_of_integers)
+    if length == 0:
         return None
-    if len(list_of_integers) == 1:
+    elif length == 1:
         return list_of_integers[0]
-    if len(list_of_integers) == 2:
+    elif length == 2:
         return max(list_of_integers)
 
-    mid = int(len(list_of_integers) / 2)
-    peak = list_of_integers[mid]
-    if peak > list_of_integers[mid - 1] and peak > list_of_integers[mid + 1]:
-        return peak
-    elif peak < list_of_integers[mid - 1]:
-        return find_peak(list_of_integers[:mid])
-    else:
-        return find_peak(list_of_integers[mid + 1:])
+    start, end = 0, length - 1
+    while start < end:
+        mid = start + (end - start) // 2
+        if unsorted[mid] > unsorted[mid - 1] and \
+                unsorted[mid] > unsorted[mid + 1]:
+            return unsorted[mid]
+        if unsorted[mid - 1] > unsorted[mid + 1]:
+            end = mid
+        else:
+            start = mid + 1
+    return unsorted[start]
