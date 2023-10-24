@@ -21,7 +21,7 @@ request(apiUrl, function (error, response, body) {
     const characterUrls = movieData.characters;
 
     // Define a function to fetch and print character names
-    function fetchCharacterName(index) {
+    function fetchCharacterName (index) {
       if (index < characterUrls.length) {
         const characterUrl = characterUrls[index];
         request(characterUrl, function (error, response, body) {
